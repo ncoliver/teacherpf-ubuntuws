@@ -1,0 +1,53 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Teacher Portfolio{% endblock %}</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background: #fafafa; color: #111; }
+      header { background: #111; color: #fff; padding: 16px 20px; }
+      header a { color: #fff; text-decoration: none; }
+      main { max-width: 980px; margin: 0 auto; padding: 24px 16px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+      .card { background: #fff; border: 1px solid #e5e5e5; border-radius: 14px; padding: 14px; }
+      .pill { display:inline-block; padding: 4px 10px; border-radius: 999px; border: 1px solid #ddd; font-size: 12px; }
+      a { color: #1a73e8; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .muted { color: #666; font-size: 14px; }
+      .media { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+      img { max-width: 100%; border-radius: 12px; border: 1px solid #eee; }
+      video { width: 100%; border-radius: 12px; border: 1px solid #eee; }
+      footer { padding: 28px 16px; text-align: center; color: #666; }
+      code { background:#f2f2f2; padding: 2px 6px; border-radius: 6px; }
+      .row { display:flex; flex-wrap: wrap; gap: 8px; align-items:center; }
+      .spacer { height: 10px; }
+      .badge { display:inline-flex; align-items:center; gap:6px; padding: 6px 10px; border-radius: 10px; border: 1px solid #e5e5e5; background:#fff; }
+      .title { margin: 0 0 6px 0; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div style="max-width: 980px; margin: 0 auto; padding: 0 16px;">
+        <div class="row" style="justify-content:space-between;">
+          <div>
+            <a href="/"><strong>Teacher Portfolio</strong></a>
+            <span class="muted" style="color:#ddd; margin-left:10px;">Artifacts by school year</span>
+          </div>
+          <div class="row">
+            <a href="/admin/" class="pill">Admin</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+      <span class="muted">Built with Django · Media served from <code>/media/</code> in debug</span>
+    </footer>
+  </body>
+</html>

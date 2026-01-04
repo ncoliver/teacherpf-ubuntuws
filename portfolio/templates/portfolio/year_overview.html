@@ -1,0 +1,27 @@
+{% extends "portfolio/base.html" %}
+{% block title %}{{ year.name }} · Portfolio{% endblock %}
+
+{% block content %}
+  <div class="row" style="justify-content:space-between;">
+    <div>
+      <h1 class="title">{{ year.name }}</h1>
+      <div class="muted">Start: {{ year.start_year }} · End: {{ year.end_year }}</div>
+    </div>
+    <div>
+      <a class="pill" href="{% url 'portfolio:home' %}">All Years</a>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="grid">
+    {% for c in categories %}
+      <div class="card">
+        <h2 style="margin:0 0 6px 0;">
+          <a href="{% url 'portfolio:artifact_list' year_slug=year.slug category=c.key %}">{{ c.label }}</a>
+        </h2>
+        <div class="muted">{{ c.count }} artifact{{ c.count|pluralize }}</div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

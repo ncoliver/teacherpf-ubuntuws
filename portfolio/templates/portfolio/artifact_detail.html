@@ -1,0 +1,115 @@
+{% extends "portfolio/base.html" %}
+{% block title %}{{ artifact.title }} · Portfolio{% endblock %}
+
+{% block content %}
+  <div class="row" style="justify-content:space-between;">
+    <div>
+      <h1 class="title">{{ artifact.title }}</h1>
+      <div class="row">
+        <span class="pill">{{ artifact.school_year.name }}</span>
+        <span class="pill">{{ artifact.get_category_display }}</span>
+        <span class="pill">Updated {{ artifact.updated_at|date:"M j, Y" }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <a class="pill" href="{% url 'portfolio:artifact_list' year_slug=artifact.school_year.slug category=artifact.category %}">Back to List</a>
+      <a class="pill" href="{% url 'portfolio:year_overview' year_slug=artifact.school_year.slug %}">Year</a>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Description</h2>
+    {% if artifact.description %}
+      <p style="white-space: pre-wrap; margin-bottom:0;">{{ artifact.description }}</p>
+    {% else %}
+      <p class="muted" style="margin-bottom:0;">No description.</p>
+    {% endif %}
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="card">
+  <h2 style="margin-top:0;">Standards</h2>
+
+  {% if artifact.artifact_standards.all %}
+    {% regroup artifact.artifact_standards.all by standard.category as grouped %}
+    {% for group in grouped %}
+      <div class="spacer"></div>
+      <h3 style="margin: 0 0 8px 0;">{{ group.grouper.name }}</h3>
+
+      <div style="display:grid; gap:10px;">
+        {% for link in group.list %}
+          <div class="badge" style="display:block;">
+            <div class="row">
+              <strong>{{ link.standard.code }}</strong>
+            </div>
+
+            {% if link.note %}
+              <div class="muted" style="margin-top:6px; white-space:pre-wrap;">
+                {{ link.note }}
+              </div>
+            {% else %}
+              <div class="muted" style="margin-top:6px;">
+                No note added for this standard.
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="muted" style="margin-bottom:0;">No standards linked.</p>
+  {% endif %}
+</div>
+
+  <div class="spacer"></div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Images</h2>
+    {% if artifact.images.all %}
+      <div class="media">
+        {% for img in artifact.images.all %}
+          <div>
+            <img src="{{ img.image.url }}" alt="{{ img.caption|default:artifact.title }}" />
+            {% if img.caption %}
+              <div class="muted">{{ img.caption }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="muted" style="margin-bottom:0;">No images yet.</p>
+    {% endif %}
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Videos</h2>
+    {% if artifact.videos.all %}
+      <div class="media">
+        {% for v in artifact.videos.all %}
+          <div>
+            {% if v.url %}
+              <div class="muted" style="margin-bottom:6px;">{{ v.title|default:"Video link" }}</div>
+              <iframe
+                src="{{ v.url }}"
+                style="width:100%; aspect-ratio: 16/9; border: 1px solid #eee; border-radius: 12px;"
+                loading="lazy"
+                allowfullscreen
+              ></iframe>
+              <div class="muted">If your provider requires an embed URL, store the embed link here.</div>
+            {% elif v.file %}
+              <div class="muted" style="margin-bottom:6px;">{{ v.title|default:"Video file" }}</div>
+              <video controls src="{{ v.file.url }}"></video>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="muted" style="margin-bottom:0;">No videos yet.</p>
+    {% endif %}
+  </div>
+{% endblock %}

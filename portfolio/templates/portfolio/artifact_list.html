@@ -1,0 +1,61 @@
+{% extends "portfolio/base.html" %}
+{% block title %}{{ year.name }} · {{ category_label }}{% endblock %}
+
+{% block content %}
+  <div class="row" style="justify-content:space-between;">
+    <div>
+      <h1 class="title">{{ category_label }}</h1>
+      <div class="muted"><a href="{% url 'portfolio:year_overview' year_slug=year.slug %}">{{ year.name }}</a></div>
+    </div>
+    <div class="row">
+      <a class="pill" href="{% url 'portfolio:year_overview' year_slug=year.slug %}">Year Overview</a>
+      <a class="pill" href="{% url 'portfolio:home' %}">All Years</a>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="grid">
+    {% for a in artifacts %}
+      <div class="card">
+        <h2 style="margin:0 0 6px 0;">
+          <a href="{{ a.get_absolute_url }}">{{ a.title }}</a>
+        </h2>
+        <div class="row">
+          <span class="pill">{{ a.get_category_display }}</span>
+          <span class="pill">{{ a.school_year.name }}</span>
+          <span class="pill">{{ a.standards.count }} standard{{ a.standards.count|pluralize }}</span>
+        </div>
+        <div class="spacer"></div>
+        <div class="muted">
+          {% if a.description %}
+            {{ a.description|truncatechars:160 }}
+          {% else %}
+            No description.
+          {% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <div class="card">
+        <strong>No artifacts in this category yet.</strong>
+        <div class="spacer"></div>
+        <div class="muted">Add one in <a href="/admin/">Admin</a> → Artifacts.</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if is_paginated %}
+    <div class="spacer"></div>
+    <div class="row" style="justify-content:space-between;">
+      <div class="muted">Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</div>
+      <div class="row">
+        {% if page_obj.has_previous %}
+          <a class="pill" href="?page={{ page_obj.previous_page_number }}">Prev</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+          <a class="pill" href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

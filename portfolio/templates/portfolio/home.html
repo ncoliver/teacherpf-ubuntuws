@@ -1,0 +1,30 @@
+{% extends "portfolio/base.html" %}
+{% block title %}Teacher Portfolio{% endblock %}
+
+{% block content %}
+  <h1 class="title">School Years</h1>
+  <p class="muted">Choose a year, then a category.</p>
+
+  <div class="grid">
+    {% for year in years %}
+      <div class="card">
+        <h2 style="margin:0 0 8px 0;">
+          <a href="{% url 'portfolio:year_overview' year_slug=year.slug %}">{{ year.name }}</a>
+        </h2>
+        <div class="row">
+          {% for c in categories %}
+            <a class="pill" href="{% url 'portfolio:artifact_list' year_slug=year.slug category=c.key %}">
+              {{ c.label }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    {% empty %}
+      <div class="card">
+        <strong>No school years yet.</strong>
+        <div class="spacer"></div>
+        <div class="muted">Add one in <a href="/admin/">Admin</a> → School years.</div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
