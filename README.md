@@ -1,5 +1,5 @@
 # Teacher Portfolio (Django)
-
+[![Django CI](https://github.com/ncoliver/teacherpf-ubuntuws/actions/workflows/django.yml/badge.svg)](https://github.com/ncoliver/teacherpf-ubuntuws/actions/workflows/django.yml)
 ## Concept
 Artifacts are organized by **School Year** (e.g. 2025-2026) and **Category**:
 - Activities
