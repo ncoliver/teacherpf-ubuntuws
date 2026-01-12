@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
@@ -32,29 +33,29 @@ jobs:
 
       - name: Show environment (debug)
         run: |
-          python -V
-          pip -V
+          python3 --version
+          pip3 --version
           ls -la
           echo "DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE"
           echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip wheel
-          pip install -r requirements.txt
-          pip freeze
+          python3 -m pip install --upgrade pip wheel
+          pip3 install -r requirements.txt
+          pip3 freeze
 
-      - name: Django sanity check (debug)
+      - name: Django sanity check
         run: |
-          python -c "import os; print('DJANGO_SETTINGS_MODULE=', os.environ.get('DJANGO_SETTINGS_MODULE'))"
-          python -c "import django; print('Django version:', django.get_version())"
-          python manage.py --version
-          python manage.py check
+          python3 -c "import os; print('DJANGO_SETTINGS_MODULE=', os.environ.get('DJANGO_SETTINGS_MODULE'))"
+          python3 -c "import django; print('Django version:', django.get_version())"
+          python3 manage.py --version
+          python3 manage.py check
 
       - name: Check migrations
         run: |
-          python manage.py makemigrations --check --dry-run
+          python3 manage.py makemigrations --check --dry-run
 
       - name: Run tests
         run: |
-          python manage.py test --verbosity 2
+          python3 manage.py test --verbosity 2
