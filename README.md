@@ -63,3 +63,20 @@ This project solves that by providing a **standards-aligned digital portfolio sy
 
 ## Project Structure
 ![project workflow chart](/media/ect_images/workflow.png)
+
+## Screenshots
+
+## Future Enhancements
+* Role-based access (students, reviewers, admins)
+* Artifact commenting & feedback
+* Export for accreditation audits
+* API endpoints for external systems
+* Analytics & reporting dashboards
+  
+## References
+
+Django Documentation: https://docs.djangoproject.com/
+
+Docker Documentation: https://docs.docker.com/
+
+Django Admin Best Practices
