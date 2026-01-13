@@ -80,3 +80,7 @@ Django Documentation: https://docs.djangoproject.com/
 Docker Documentation: https://docs.docker.com/
 
 Django Admin Best Practices
+
+## Author
+
+Built for scalable, standards-aligned portfolio management in real-world educational and business environments.
