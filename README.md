@@ -62,3 +62,4 @@ This project solves that by providing a **standards-aligned digital portfolio sy
 ---
 
 ## Project Structure (Simplified)
+![project workflow chart](/media/ect_images/workflow.png)
